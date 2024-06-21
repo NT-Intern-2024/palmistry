@@ -2,6 +2,8 @@ from PIL import Image, ImageDraw
 import cv2
 import mediapipe as mp
 
+from my_utils import *
+
 def measure(path_to_warped_image_mini, lines):
     heart_thres_x = 0
     head_thres_x = 0
@@ -13,6 +15,11 @@ def measure(path_to_warped_image_mini, lines):
         image_height, image_width, _ = image.shape
 
         results = hands.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
+        # TODO: Debug
+        if results.multi_hand_landmarks is None:
+            logger.error(f"NOT FOUND: multi_hand_landmarks")
+            return None, None
         hand_landmarks = results.multi_hand_landmarks[0]
 
         zero = hand_landmarks.landmark[mp_hands.HandLandmark(0).value].y

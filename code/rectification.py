@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import mediapipe as mp
 
+from my_utils import *
 # code reference: https://google.github.io/mediapipe/solutions/hands.html
 
 WARP_SUCCESS = 1
@@ -35,9 +36,17 @@ def warp_image(path_to_image, path_to_warped_image):
     with mp_hands.Hands(static_image_mode=True, max_num_hands=1, min_detection_confidence=0.5) as hands:
         # 1. Extract 21 landmark points
         image = cv2.flip(cv2.imread(path_to_image), 1)
+        
+        # MyDebug: check image
+        # cv2.imshow("Debug image", image)
+        # cv2.waitKey()
+
         results = hands.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+        
         image_height, image_width, _ = image.shape
         if results.multi_hand_landmarks is None:
+            logger.warn("\t hand not detect")
+            print("Hand not detect")
             return None
         else:
             hand_landmarks = results.multi_hand_landmarks[0]

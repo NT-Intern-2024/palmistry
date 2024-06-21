@@ -6,3 +6,12 @@ venv
 /data
 /results
 /data_failed
+
+/__pycache__
+/my_results
+
+/checkpoints
+
+*.log
+
+/.vscode
