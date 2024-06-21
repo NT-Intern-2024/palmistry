@@ -2,16 +2,17 @@
 .DS_Store
 *.zip
 *.tar.gz
+/.vscode
+
 venv
 /data
 /results
 /data_failed
 
-/__pycache__
+__pycache__
+
+checkpoints
+
 /my_results
 
-/checkpoints
-
 *.log
-
-/.vscode
